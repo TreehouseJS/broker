@@ -1,0 +1,28 @@
+{
+  "name": "broker",
+  "version": "0.1.0",
+  "description": "Prepare a web worker to run untrusted code securely",
+  "main": "dist/broker",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TreehouseJS/broker.git"
+  },
+  "keywords": [
+    "treehouse",
+    "web",
+    "worker",
+    "webworker",
+    "worker",
+    "sandbox"
+  ],
+  "author": "Lon Ingram",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "473d5d91f7c803eaaa83eb9838b58e96cb9a5c79",
+  "bugs": {
+    "url": "https://github.com/TreehouseJS/broker/issues"
+  }
+}
