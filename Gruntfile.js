@@ -11,6 +11,7 @@ module.exports = function(grunt) {
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     // Task configuration.
+    /*
     concat: {
       options: {
         banner: '<%= banner %>',
@@ -21,6 +22,8 @@ module.exports = function(grunt) {
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
+    */
+    /*
     uglify: {
       options: {
         banner: '<%= banner %>'
@@ -30,6 +33,7 @@ module.exports = function(grunt) {
         dest: 'dist/<%= pkg.name %>.min.js'
       }
     },
+    */
     jshint: {
       options: {
         curly: true,
@@ -52,9 +56,6 @@ module.exports = function(grunt) {
         src: ['lib/**/*.js', 'test/**/*.js']
       }
     },
-    nodeunit: {
-      files: ['test/**/*_test.js']
-    },
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
@@ -62,19 +63,31 @@ module.exports = function(grunt) {
       },
       lib_test: {
         files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'nodeunit']
+        tasks: ['jshint:lib_test']
+      }
+    },
+    intern: {
+      broker: {
+        options: {
+          runType: 'runner', // defaults to 'client'
+          config: 'tests/intern'
+        }
       }
     }
   });
 
   // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  //grunt.loadNpmTasks('grunt-contrib-concat');
+  //grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  // Default task.
-  grunt.registerTask('default', ['jshint', 'nodeunit', 'concat', 'uglify']);
+  // Load the Intern task
+  grunt.loadNpmTasks('intern');
 
+  // Register a test task that uses Intern
+  grunt.registerTask('test', [ 'intern' ]);
+
+  // By default we just test
+  grunt.registerTask('default', [ 'test' ]);
 };

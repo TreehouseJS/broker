@@ -24,5 +24,12 @@
   "gitHead": "473d5d91f7c803eaaa83eb9838b58e96cb9a5c79",
   "bugs": {
     "url": "https://github.com/TreehouseJS/broker/issues"
+  },
+  "devDependencies": {
+    "intern": "~1.1.0",
+    "grunt": "~0.4.1"
+  },
+  "dependencies": {
+    "tiny-jsonrpc": "~0.2.1"
   }
 }
