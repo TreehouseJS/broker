@@ -1,6 +1,7 @@
 define([
   'intern!bdd',
-  'intern/chai!expect'
+  'intern/chai!expect',
+  'tests/broker/import-scripts'
 ], function (bdd, expect) {
   bdd.describe('broker', function () {
     var worker;
