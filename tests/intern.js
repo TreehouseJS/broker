@@ -23,7 +23,7 @@ define({
   // capabilities options specified for an environment will be copied as-is
   environments: [
     { browserName: 'internet explorer', version: '10', platform: 'Windows 2012' },
-    { browserName: 'firefox', version: '19', platform: 'Mac 10.6' },
+    { browserName: 'firefox', platform: 'Mac 10.6' },
     { browserName: 'chrome', platform: 'Mac 10.8' },
     { browserName: 'safari', version: '6', platform: 'Mac 10.8' }
   ],
@@ -57,5 +57,5 @@ define({
   functionalSuites: [ /* 'myPackage/tests/functional' */ ],
 
   // A regular expression matching URLs to files that should not be included in code coverage analysis
-  excludeInstrumentation: /^tests\//
+  excludeInstrumentation: /^.*/
 });
