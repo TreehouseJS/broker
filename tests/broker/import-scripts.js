@@ -3,6 +3,7 @@ define([
   'intern/chai!expect',
   'node_modules/intern/node_modules/dojo/Deferred'
 ], function (bdd, expect, Deferred) {
+  /*
   bdd.describe('importScripts', function () {
     var worker;
 
@@ -63,4 +64,5 @@ define([
       worker = null;
     });
   });
+  */
 });

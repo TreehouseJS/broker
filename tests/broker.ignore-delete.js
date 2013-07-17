@@ -5,7 +5,10 @@
       return result;
     }, {});
 
-    var failed = [];
+    var result = {
+      failed: [],
+      stillNull: []
+    };
     var success = true;
     function walk(obj, debug) {
       var proto = Object.getPrototypeOf(obj);
@@ -13,9 +16,14 @@
 
       Object.getOwnPropertyNames(obj).forEach(function (name) {
         if (!whitelisted[name]) {
-          if (obj[name] !== null) {
+          var deleted = delete obj[name];
+          if (deleted) {
             success = false;
-            failed.push(name);
+            result.failed.push(name);
+
+            if (obj[name] === null) {
+              result.stillNull.push(name);
+            }
           }
         }
       });
@@ -30,6 +38,6 @@
     }
 
     walk(global);
-    postMessage(success || failed);
+    postMessage(success || result);
   };
 }(this));
