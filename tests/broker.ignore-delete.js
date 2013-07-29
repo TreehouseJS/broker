@@ -16,8 +16,9 @@
 
       Object.getOwnPropertyNames(obj).forEach(function (name) {
         if (!whitelisted[name]) {
+          var value = obj[name];
           var deleted = delete obj[name];
-          if (deleted) {
+          if (deleted || obj[name] !== value) {
             success = false;
             result.failed.push(name);
 
