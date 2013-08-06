@@ -171,6 +171,66 @@ define([
             });
           });
         });
+
+        tdd.suite('.retain', function () {
+          var retain = ['XMLHttpRequest', 'importScripts'];
+
+          beforeAndAfter();
+
+          tdd.test('retained globals cannot be deleted', function () {
+            var dfd = this.async();
+
+            worker.onmessage = function (e) {
+              expect(e.data).to.eql('ready');
+
+              worker.postMessage(retain);
+
+              worker.onmessage = dfd.callback(function (e) {
+                if (e.data !== true) {
+                  console.dir(e.data);
+                }
+                expect(e.data).to.be.true;
+              });
+            };
+
+            worker.postMessage({
+              properties: {
+                ignore: ignore.slice(),
+                retain: retain.slice()
+              },
+              scripts: [
+                '/tests/broker.retain-delete.js'
+              ]
+            });
+          });
+
+          tdd.test('retained globals are not clobbered', function () {
+            var dfd = this.async();
+
+            worker.onmessage = function (e) {
+              expect(e.data).to.eql('ready');
+
+              worker.postMessage(retain);
+
+              worker.onmessage = dfd.callback(function (e) {
+                if (e.data !== true) {
+                  console.dir(e.data);
+                }
+                expect(e.data).to.be.true;
+              });
+            };
+
+            worker.postMessage({
+              properties: {
+                ignore: ignore.slice(),
+                retain: retain.slice()
+              },
+              scripts: [
+                '/tests/broker.retain-not-clobbered.js'
+              ]
+            });
+          });
+        });
       });
     });
   });
