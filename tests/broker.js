@@ -172,6 +172,65 @@ define([
           });
         });
 
+        tdd.suite('.blacklist', function () {
+          var blacklist = ['XMLHttpRequest', 'importScripts'];
+          beforeAndAfter();
+
+          tdd.test('blacklisted globals cannot be deleted', function () {
+            var dfd = this.async();
+
+            worker.onmessage = function (e) {
+              expect(e.data).to.eql('ready');
+
+              worker.postMessage(blacklist);
+
+              worker.onmessage = dfd.callback(function (e) {
+                if (e.data !== true) {
+                  console.dir(e.data);
+                }
+                expect(e.data).to.be.true;
+              });
+            };
+
+            worker.postMessage({
+              properties: {
+                ignore: blacklist.concat(ignore.slice()),
+                blacklist: blacklist.slice()
+              },
+              scripts: [
+                '/tests/broker.blacklist-delete.js'
+              ]
+            });
+          });
+
+          tdd.test('blacklisted globals are null', function () {
+            var dfd = this.async();
+
+            worker.onmessage = function (e) {
+              expect(e.data).to.eql('ready');
+
+              worker.postMessage(blacklist);
+
+              worker.onmessage = dfd.callback(function (e) {
+                if (e.data !== true) {
+                  console.dir(e.data);
+                }
+                expect(e.data).to.be.true;
+              });
+            };
+
+            worker.postMessage({
+              properties: {
+                ignore: blacklist.concat(ignore.slice()),
+                blacklist: blacklist.slice()
+              },
+              scripts: [
+                '/tests/broker.blacklist-null.js'
+              ]
+            });
+          });
+        });
+
         tdd.suite('.retain', function () {
           var retain = ['XMLHttpRequest', 'importScripts'];
 
