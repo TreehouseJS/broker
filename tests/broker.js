@@ -4,7 +4,7 @@ define([
   'intern/chai!expect'
 ], function (_, tdd, expect) {
   tdd.suite('broker', function () {
-    var ignore = [
+    var whitelist = [
       'Array', 'ArrayBuffer', 'Boolean', 'DataView', 'Date', 'Error',
       'EvalError', 'EventSource', 'FileError', 'FileException', 'Float32Array',
       'Float64Array', 'Function', 'Infinity', 'Int16Array', 'Int32Array',
@@ -45,7 +45,7 @@ define([
       _.delay(function () {
         worker.postMessage({
           properties: {
-            ignore: ignore.slice()
+            whitelist: whitelist.slice()
           }
         });
         configPosted = true;
@@ -84,7 +84,7 @@ define([
 
           worker.postMessage({
             properties: {
-              ignore: ignore.slice()
+              whitelist: whitelist.slice()
             },
             scripts: [
               '/tests/broker.scripts.first.js',
@@ -106,7 +106,7 @@ define([
 
           worker.postMessage({
             properties: {
-              ignore: ignore.slice()
+              whitelist: whitelist.slice()
             },
             scripts: [
               '/tests/broker.scripts.cannot-import-scripts.js'
@@ -116,7 +116,7 @@ define([
       });
 
       tdd.suite('.properties', function () {
-        tdd.suite('.ignore', function () {
+        tdd.suite('.whitelist', function () {
           beforeAndAfter();
 
           tdd.test('unlisted globals cannot be deleted', function () {
@@ -125,7 +125,7 @@ define([
             worker.onmessage = function (e) {
               expect(e.data).to.eql('ready');
 
-              worker.postMessage(ignore);
+              worker.postMessage(whitelist);
 
               worker.onmessage = dfd.callback(function (e) {
                 if (e.data !== true) {
@@ -137,10 +137,10 @@ define([
 
             worker.postMessage({
               properties: {
-                ignore: ignore.slice()
+                whitelist: whitelist.slice()
               },
               scripts: [
-                '/tests/broker.ignore-delete.js'
+                '/tests/broker.whitelist-delete.js'
               ]
             });
           });
@@ -151,7 +151,7 @@ define([
             worker.onmessage = function (e) {
               expect(e.data).to.eql('ready');
 
-              worker.postMessage(ignore);
+              worker.postMessage(whitelist);
 
               worker.onmessage = dfd.callback(function (e) {
                 if (e.data !== true) {
@@ -163,7 +163,7 @@ define([
 
             worker.postMessage({
               properties: {
-                ignore: ignore.slice()
+                whitelist: whitelist.slice()
               },
               scripts: [
                 '/tests/broker.should-replace-globals.js'
@@ -194,7 +194,7 @@ define([
 
             worker.postMessage({
               properties: {
-                ignore: blacklist.concat(ignore.slice()),
+                whitelist: blacklist.concat(whitelist.slice()),
                 blacklist: blacklist.slice()
               },
               scripts: [
@@ -221,7 +221,7 @@ define([
 
             worker.postMessage({
               properties: {
-                ignore: blacklist.concat(ignore.slice()),
+                whitelist: blacklist.concat(whitelist.slice()),
                 blacklist: blacklist.slice()
               },
               scripts: [
@@ -254,7 +254,7 @@ define([
 
             worker.postMessage({
               properties: {
-                ignore: ignore.slice(),
+                whitelist: whitelist.slice(),
                 retain: retain.slice()
               },
               scripts: [
@@ -281,7 +281,7 @@ define([
 
             worker.postMessage({
               properties: {
-                ignore: ignore.slice(),
+                whitelist: whitelist.slice(),
                 retain: retain.slice()
               },
               scripts: [
