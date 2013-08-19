@@ -32,7 +32,7 @@ define([
     var worker;
 
     tdd.test('waits for a config message and posts "ready"', function () {
-      var dfd = this.async(1000);
+      var dfd = this.async(5000);
       var configPosted = false;
 
       worker = new Worker('/lib/broker.js');

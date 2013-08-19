@@ -5,35 +5,33 @@ module.exports = function(grunt) {
   grunt.initConfig({
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
-    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-      '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-      '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-      '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-      ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
-    // Task configuration.
-    /*
-    concat: {
-      options: {
-        banner: '<%= banner %>',
-        stripBanners: true
-      },
+    requirejs: {
       dist: {
-        src: ['lib/<%= pkg.name %>.js'],
-        dest: 'dist/<%= pkg.name %>.js'
+        options: {
+          logLevel: 1,
+
+          wrap: {
+            startFile: 'build/broker.start.frag.js',
+            endFile: 'build/broker.end.frag.js'
+          },
+          almond: true,
+          include: ['sandbox'],
+          baseUrl: 'lib',
+          out: 'dist/broker.js',
+
+          paths: {
+            'lodash': '../node_modules/lodash/lodash',
+            'rsvp': '../node_modules/rsvp/dist/rsvp-2.0.1.amd',
+            'text': '../vendor/text',
+            'tiny-jsonrpc': '../vendor/tiny-jsonrpc/lib/tiny-jsonrpc'
+          },
+
+          //generateSourceMaps: true,
+          //preserveLicenseComments: false
+          optimize: 'none'
+        }
       }
     },
-    */
-    /*
-    uglify: {
-      options: {
-        banner: '<%= banner %>'
-      },
-      dist: {
-        src: '<%= concat.dist.dest %>',
-        dest: 'dist/<%= pkg.name %>.min.js'
-      }
-    },
-    */
     jshint: {
       options: {
         curly: true,
@@ -76,11 +74,7 @@ module.exports = function(grunt) {
     }
   });
 
-  // These plugins provide necessary tasks.
-  //grunt.loadNpmTasks('grunt-contrib-concat');
-  //grunt.loadNpmTasks('grunt-contrib-uglify');
-  //grunt.loadNpmTasks('grunt-contrib-jshint');
-  //grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-requirejs');
 
   // Load the Intern task
   grunt.loadNpmTasks('intern');
