@@ -23,7 +23,10 @@ module.exports = function(grunt) {
             'lodash': '../node_modules/lodash/lodash',
             'rsvp': '../node_modules/rsvp/dist/rsvp-2.0.1.amd',
             'text': '../vendor/text',
-            'tiny-jsonrpc': '../vendor/tiny-jsonrpc/lib/tiny-jsonrpc'
+            'tiny-jsonrpc': '../node_modules/' +
+              'tiny-jsonrpc/lib/tiny-jsonrpc',
+            'tiny-jsonrpc-postmessage': '../node_modules/' +
+              'tiny-jsonrpc-postmessage/lib/tiny-jsonrpc-postmessage'
           },
 
           //generateSourceMaps: true,
