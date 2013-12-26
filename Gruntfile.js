@@ -1,4 +1,5 @@
-/*global module:false*/
+'use strict';
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -40,21 +41,41 @@ module.exports = function(grunt) {
         curly: true,
         eqeqeq: true,
         immed: true,
+        indent: 2,
         latedef: true,
+        maxlen: 80,
         newcap: true,
         noarg: true,
+        nonew: true,
+        quotmark: 'single',
+        strict: true,
         sub: true,
+        trailing: true,
         undef: true,
         unused: true,
-        boss: true,
-        eqnull: true,
         globals: {}
       },
       gruntfile: {
+        options: {
+          node: true
+        },
         src: 'Gruntfile.js'
       },
-      lib_test: {
-        src: ['lib/**/*.js', 'test/**/*.js']
+      broker: {
+        options: {
+          worker: true
+        },
+        src: ['lib/broker.js']
+      },
+      sandbox: {
+        options: {
+          browser: true,
+          globals: {
+            define: false,
+            require: false
+          }
+        },
+        src: ['lib/sandbox.js']
       }
     },
     watch: {
@@ -78,6 +99,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Load the Intern task
   grunt.loadNpmTasks('intern');
