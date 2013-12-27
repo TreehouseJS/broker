@@ -31,10 +31,10 @@
     "lodash": "~1.3.1",
     "grunt-lodashbuilder": "~0.1.6",
     "requirejs": "~2.1.8",
-    "grunt-requirejs": "~0.3.5",
     "tiny-jsonrpc": "~0.2.1",
     "tiny-jsonrpc-postmessage": "~0.1.2",
-    "grunt-contrib-jshint": "~0.8.0"
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-requirejs": "~0.4.1"
   },
   "dependencies": {
     "tiny-jsonrpc": "~0.2.1",
