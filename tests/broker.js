@@ -13,7 +13,7 @@ define([
       'SyntaxError', 'TEMPORARY', 'TypeError', 'URIError', 'Uint16Array',
       'Uint32Array', 'Uint8Array', 'WebKitBlobBuilder', 'WebKitFlags',
       'WorkerLocation',
-      
+
       'atob', 'btoa', 'clearInterval', 'clearTimeout', 'close', 'decodeURI',
       'decodeURIComponent', 'dispatchEvent', 'encodeURI', 'encodeURIComponent',
       'escape', 'eval', 'isFinite', 'isNaN', 'location', 'navigator', 'onclose',
@@ -27,7 +27,10 @@ define([
       'uneval',
 
       // Safari 6.0.4
-      'webkitNotifications'
+      'webkitNotifications',
+
+      // Chrome
+      'Intl'
     ];
     var worker;
 
