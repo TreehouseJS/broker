@@ -34,7 +34,8 @@
     "tiny-jsonrpc": "~0.2.1",
     "tiny-jsonrpc-postmessage": "~0.1.2",
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-requirejs": "~0.4.1"
+    "grunt-contrib-requirejs": "~0.4.1",
+    "almond": "~0.2.7"
   },
   "dependencies": {
     "tiny-jsonrpc": "~0.2.1",

@@ -15,7 +15,7 @@ module.exports = function(grunt) {
             startFile: 'build/broker.start.frag.js',
             endFile: 'build/broker.end.frag.js'
           },
-          almond: true,
+          name: '../node_modules/almond/almond',
           include: ['sandbox'],
           baseUrl: 'lib',
           out: 'dist/broker.js',
