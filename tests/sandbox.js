@@ -39,6 +39,7 @@ define([
 
         broker.onerror = dfd.callback(function (e) {
           expect(e.message).to.contain('OHNOES');
+          e.preventDefault();
           return true;
         });
 
@@ -192,7 +193,7 @@ define([
 
             return _.toArray(arguments);
           });
-          
+
           // bounce the request off the worker
           broker.postMessage(request);
         });
