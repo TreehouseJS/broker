@@ -1,8 +1,8 @@
 define([
   'node_modules/lodash/lodash',
   'intern!tdd',
-  'intern/chai!expect'
-], function (_, tdd, expect) {
+  'intern/chai!assert'
+], function (_, tdd, assert) {
   tdd.suite('broker', function () {
     var whitelist = [
       'Array', 'ArrayBuffer', 'Boolean', 'DataView', 'Date', 'Error',
@@ -41,8 +41,8 @@ define([
       worker = new Worker('/lib/broker.js');
 
       worker.onmessage = dfd.callback(function (e) {
-        expect(configPosted).to.be.true;
-        expect(e.data).to.eql('ready');
+        assert.isTrue(configPosted);
+        assert.strictEqual(e.data, 'ready');
       });
 
       _.delay(function () {
@@ -74,13 +74,13 @@ define([
           var dfd = this.async();
 
           worker.onmessage = function (e) {
-            expect(e.data).to.eql('ready');
+            assert.strictEqual(e.data, 'ready');
 
             worker.onmessage = function (e) {
-              expect(e.data).to.eql('first!');
+              assert.strictEqual(e.data, 'first!');
 
               worker.onmessage = dfd.callback(function (e) {
-                expect(e.data).to.eql('next');
+                assert.strictEqual(e.data, 'next');
               });
             };
           };
@@ -100,10 +100,10 @@ define([
           var dfd = this.async();
 
           worker.onmessage = function (e) {
-            expect(e.data).to.eql('ready');
+            assert.strictEqual(e.data, 'ready');
 
             worker.onmessage = dfd.callback(function (e) {
-              expect(e.data).to.be.true;
+              assert.isTrue(e.data);
             });
           };
 
@@ -126,7 +126,7 @@ define([
             var dfd = this.async();
 
             worker.onmessage = function (e) {
-              expect(e.data).to.eql('ready');
+              assert.strictEqual(e.data, 'ready');
 
               worker.postMessage(whitelist);
 
@@ -134,7 +134,7 @@ define([
                 if (e.data !== true) {
                   console.dir(e.data);
                 }
-                expect(e.data).to.be.true;
+                assert.isTrue(e.data);
               });
             };
 
@@ -152,7 +152,7 @@ define([
             var dfd = this.async();
 
             worker.onmessage = function (e) {
-              expect(e.data).to.eql('ready');
+              assert.strictEqual(e.data, 'ready');
 
               worker.postMessage(whitelist);
 
@@ -160,7 +160,7 @@ define([
                 if (e.data !== true) {
                   console.dir(e.data);
                 }
-                expect(e.data).to.be.true;
+                assert.isTrue(e.data);
               });
             };
 
@@ -183,7 +183,7 @@ define([
             var dfd = this.async();
 
             worker.onmessage = function (e) {
-              expect(e.data).to.eql('ready');
+              assert.strictEqual(e.data, 'ready');
 
               worker.postMessage(blacklist);
 
@@ -191,7 +191,7 @@ define([
                 if (e.data !== true) {
                   console.dir(e.data);
                 }
-                expect(e.data).to.be.true;
+                assert.isTrue(e.data);
               });
             };
 
@@ -210,7 +210,7 @@ define([
             var dfd = this.async();
 
             worker.onmessage = function (e) {
-              expect(e.data).to.eql('ready');
+              assert.strictEqual(e.data, 'ready');
 
               worker.postMessage(blacklist);
 
@@ -218,7 +218,7 @@ define([
                 if (e.data !== true) {
                   console.dir(e.data);
                 }
-                expect(e.data).to.be.true;
+                assert.isTrue(e.data);
               });
             };
 
@@ -243,7 +243,7 @@ define([
             var dfd = this.async();
 
             worker.onmessage = function (e) {
-              expect(e.data).to.eql('ready');
+              assert.strictEqual(e.data, 'ready');
 
               worker.postMessage(retain);
 
@@ -251,7 +251,7 @@ define([
                 if (e.data !== true) {
                   console.dir(e.data);
                 }
-                expect(e.data).to.be.true;
+                assert.isTrue(e.data);
               });
             };
 
@@ -270,7 +270,7 @@ define([
             var dfd = this.async();
 
             worker.onmessage = function (e) {
-              expect(e.data).to.eql('ready');
+              assert.strictEqual(e.data, 'ready');
 
               worker.postMessage(retain);
 
@@ -278,7 +278,7 @@ define([
                 if (e.data !== true) {
                   console.dir(e.data);
                 }
-                expect(e.data).to.be.true;
+                assert.isTrue(e.data);
               });
             };
 

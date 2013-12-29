@@ -1,9 +1,9 @@
 define([
   'node_modules/lodash/lodash',
   'intern!tdd',
-  'intern/chai!expect',
+  'intern/chai!assert',
   'dist/broker'
-], function (_, tdd, expect, sandbox) {
+], function (_, tdd, assert, sandbox) {
   tdd.suite('Sandbox', function () {
     var worker;
 
@@ -14,7 +14,7 @@ define([
         var broker = new sandbox.Sandbox(worker);
 
         broker.addEventListener('message', dfd.callback(function (e) {
-          expect(e.data).to.eql('marco');
+          assert.strictEqual(e.data, 'marco');
         }));
 
         worker.postMessage('marco');
@@ -26,7 +26,7 @@ define([
         var broker = new sandbox.Sandbox(worker);
 
         broker.onmessage = dfd.callback(function (e) {
-          expect(e.data).to.eql('marco');
+          assert.strictEqual(e.data, 'marco');
         });
 
         worker.postMessage('marco');
@@ -38,7 +38,7 @@ define([
         var broker = new sandbox.Sandbox(worker);
 
         broker.onerror = dfd.callback(function (e) {
-          expect(e.message).to.contain('OHNOES');
+          assert.include(e.message, 'OHNOES');
           e.preventDefault();
           return true;
         });
@@ -60,7 +60,7 @@ define([
 
         worker.postMessage('marco');
         _.delay(dfd.callback(function () {
-          expect(calledBack).to.be.false;
+          assert.isFalse(calledBack);
         }), 200);
       });
 
@@ -70,7 +70,7 @@ define([
         var broker = new sandbox.Sandbox(worker);
 
         worker.addEventListener('message', dfd.callback(function (e) {
-          expect(e.data).to.eql('marco');
+          assert.strictEqual(e.data, 'marco');
         }));
 
         broker.postMessage('marco');
@@ -90,7 +90,7 @@ define([
 
         worker.postMessage('marco');
         _.delay(dfd.callback(function () {
-          expect(calledBack).to.be.false;
+          assert.isFalse(calledBack);
         }), 200);
       });
     });
@@ -104,9 +104,9 @@ define([
 
         p.then(function (broker) {
           broker.addEventListener('message', dfd.callback(function (e) {
-            expect(e.data.jsonrpc).to.equal('2.0');
-            expect(e.data.method).to.equal('marco');
-            expect(e.data.params).to.eql(['polo!', 'bro']);
+            assert.strictEqual(e.data.jsonrpc, '2.0');
+            assert.strictEqual(e.data.method, 'marco');
+            assert.deepEqual(e.data.params, ['polo!', 'bro']);
           }));
 
           broker.notify('marco', 'polo!', 'bro');
@@ -123,7 +123,7 @@ define([
           p.then(dfd.callback(function (broker) {
             var request = broker.request('marco');
 
-            expect(request.then).to.be.a('function');
+            assert.typeOf(request.then, 'function');
           }));
         });
 
@@ -136,10 +136,10 @@ define([
           p.then(function (broker) {
             broker.request('marco', 'polo!', 'bro').
               then(dfd.callback(function (result) {
-                expect(result.jsonrpc).to.equal('2.0');
-                expect(result.id).to.exist;
-                expect(result.method).to.equal('marco');
-                expect(result.params).to.eql(['polo!', 'bro']);
+                assert.strictEqual(result.jsonrpc, '2.0');
+                assert.property(result, 'id');
+                assert.strictEqual(result.method, 'marco');
+                assert.deepEqual(result.params, ['polo!', 'bro']);
               }));
           });
         });
@@ -154,10 +154,10 @@ define([
         p.then(function (broker) {
           broker.provides().
             then(dfd.callback(function (result) {
-              expect(result.jsonrpc).to.equal('2.0');
-              expect(result.id).to.exist;
-              expect(result.method).to.equal('provides');
-              expect(result.params).to.eql([]);
+              assert.strictEqual(result.jsonrpc, '2.0');
+              assert.property(result, 'id');
+              assert.strictEqual(result.method, 'provides');
+              assert.deepEqual(result.params, []);
             }));
         });
       });
@@ -186,9 +186,9 @@ define([
               broker.onmessage = null;
               broker.terminate();
 
-              expect(e.data.jsonrpc).to.equal('2.0');
-              expect(e.data.id).to.exist;
-              expect(e.data.result).to.eql(request.params);
+              assert.strictEqual(e.data.jsonrpc, '2.0');
+              assert.property(e.data, 'id');
+              assert.deepEqual(e.data.result, request.params);
             });
 
             return _.toArray(arguments);

@@ -1,10 +1,10 @@
 define([
   'node_modules/lodash/lodash',
   'intern!tdd',
-  'intern/chai!expect',
+  'intern/chai!assert',
   'dist/broker',
   'tests/sandbox'
-], function (_, tdd, expect, sandbox) {
+], function (_, tdd, assert, sandbox) {
   tdd.suite('public interface to the broker', function () {
     var worker;
 
@@ -12,8 +12,8 @@ define([
       tdd.test('returns a promise', function () {
         var p = sandbox.create();
 
-        expect(p).to.be.a('object');
-        expect(p.then).to.be.a('function');
+        assert.typeOf(p, 'object');
+        assert.typeOf(p.then, 'function');
       });
 
       tdd.test('resolves with a Sandbox instance', function () {
@@ -21,7 +21,7 @@ define([
           var p = sandbox.create();
 
           return p.then(function (broker) {
-            expect(broker).to.be.an.instanceof(sandbox.Sandbox);
+            assert.instanceOf(broker, sandbox.Sandbox);
           });
         });
     });
