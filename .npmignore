@@ -1,0 +1,5 @@
+*.sw?
+sauce_connect.log
+.gitignore
+.git
+TODO

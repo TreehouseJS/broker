@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
           paths: {
             'lodash': '../node_modules/lodash/lodash',
-            'rsvp': '../node_modules/rsvp/dist/rsvp-2.0.1.amd',
+            'rsvp': '../node_modules/rsvp/dist/rsvp.amd',
             'text': '../vendor/text',
             'tiny-jsonrpc': '../node_modules/' +
               'tiny-jsonrpc/lib/tiny-jsonrpc',
@@ -105,4 +105,6 @@ module.exports = function(grunt) {
 
   // By default we just test
   grunt.registerTask('default', [ 'test' ]);
+
+  grunt.registerTask('build', [ 'requirejs' ]);
 };
