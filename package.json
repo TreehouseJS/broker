@@ -36,9 +36,10 @@
     "grunt-contrib-requirejs": "~0.4.1",
     "almond": "~0.2.7",
     "intern": "~1.3.2",
-    "rsvp": "~3.0.0",
+    "rsvp": "3.0.0",
     "grunt-wait": "~0.1.0",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-cli": "~0.1.11"
+    "grunt-cli": "~0.1.11",
+    "grunt-selenium-server": "0.0.1"
   }
 }
