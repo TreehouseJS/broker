@@ -85,26 +85,52 @@ module.exports = function(grunt) {
       }
     },
     intern: {
-      broker: {
+      slow: {
         options: {
-          runType: 'runner', // defaults to 'client'
-          config: 'tests/intern'
+          runType: 'runner',
+          config: 'tests/slow'
         }
+      },
+      quick: {
+        options: {
+          runType: 'runner',
+          config: 'tests/quick'
+        }
+      }
+    },
+    wait: {
+      'start-selenium-server': {
+        options: {
+          delay: 100
+        }
+      }
+    },
+    'start-selenium-server': {
+      quick: {
+      }
+    },
+    'stop-selenium-server': {
+      quick: {
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-
-  // Load the Intern task
+  grunt.loadNpmTasks('grunt-selenium-server');
   grunt.loadNpmTasks('intern');
+  grunt.loadNpmTasks('grunt-wait');
 
-  // Register a test task that uses Intern
-  grunt.registerTask('test', [ 'intern' ]);
+  grunt.registerTask('citest', [ 'intern:slow' ]);
+  grunt.registerTask('test', [
+    'start-selenium-server:quick',
+    'wait:start-selenium-server',
+    'intern:quick',
+    'stop-selenium-server:quick'
+  ]);
 
   // By default we just test
-  grunt.registerTask('default', [ 'test' ]);
+  grunt.registerTask('default', [ 'citest' ]);
 
   grunt.registerTask('build', [ 'requirejs' ]);
 };
