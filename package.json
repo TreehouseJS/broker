@@ -4,7 +4,7 @@
   "description": "Prepare a web worker to run untrusted code securely",
   "main": "dist/broker",
   "scripts": {
-    "test": "grunt test",
+    "test": "grunt citest",
     "prepublish": "grunt build"
   },
   "repository": {
