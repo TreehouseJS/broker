@@ -1,3 +1,8 @@
 language: node_js
 node_js:
   - 0.10
+addons:
+  sauce_connect:
+    username: "treehousejs"
+    access_key:
+      secure: FvVYTTUCS4zoNiOXw5Y/1hxWTWCkQZuY8E1rJIwFZd8mg8dtWpYLGJcwfFgPSJFM+voUpXwzZbHzvvUkNVRi16obkfsroIxpT74KY6BBZS1Ma7nSplqcfYUovJIYYTG7AdDe0TAlvz0h1tw50EfGUkqZkHdBDD8E4f4vrY3wiys=
