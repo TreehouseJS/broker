@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function(grunt) {
+  var brokerFiles = ['lib/broker.js'];
+  var sandboxFiles = ['lib/sandbox.js'];
 
   // Project configuration.
   grunt.initConfig({
@@ -65,7 +67,7 @@ module.exports = function(grunt) {
         options: {
           worker: true
         },
-        src: ['lib/broker.js']
+        src: brokerFiles
       },
       sandbox: {
         options: {
@@ -75,13 +77,13 @@ module.exports = function(grunt) {
             require: false
           }
         },
-        src: ['lib/sandbox.js']
+        src: sandboxFiles
       }
     },
     watch: {
-      gruntfile: {
-        files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile']
+      broker: {
+        files: brokerFiles.concat(sandboxFiles),
+        tasks: ['test']
       }
     },
     intern: {
@@ -117,20 +119,23 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-selenium-server');
   grunt.loadNpmTasks('intern');
   grunt.loadNpmTasks('grunt-wait');
 
   grunt.registerTask('citest', [ 'intern:slow' ]);
   grunt.registerTask('test', [
+    'jshint',
+    'build',
     'start-selenium-server:quick',
     'wait:start-selenium-server',
     'intern:quick',
     'stop-selenium-server:quick'
   ]);
 
-  // By default we just test
-  grunt.registerTask('default', [ 'citest' ]);
-
   grunt.registerTask('build', [ 'requirejs' ]);
+
+  // By default we build, then watch for changes and test
+  grunt.registerTask('default', [ 'build', 'watch' ]);
 };
