@@ -29,6 +29,9 @@ define([
       // Safari 6.0.4
       'webkitNotifications',
 
+      // Safari 7.1
+      'onoffline', 'ononline', 'DedicatedWorkerGlobalScope',
+
       // Chrome
       'Intl'
     ];
