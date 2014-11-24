@@ -15,7 +15,7 @@ define({
   // Note that the `build` capability will be filled in with the current commit ID from the Travis CI environment
   // automatically
   capabilities: {
-    'selenium-version': '2.37.0'
+    'selenium-version': '2.42.2'
   },
 
   // Browsers to run integration testing against. Note that version numbers must be strings if used with Sauce
@@ -44,22 +44,12 @@ define({
   // loader
   useLoader: {
     'host-node': 'requirejs',
-    'host-browser': '../../node_modules/requirejs/require.js'
+    'host-browser': '../requirejs/require.js'
   },
 
   // Configuration options for the module loader; any AMD configuration options supported by the specified AMD loader
   // can be used here
   loader: {
-    baseUrl: './',
-
-    paths: {
-      'lodash': 'node_modules/lodash/lodash',
-      'rsvp': 'node_modules/rsvp/dist/rsvp.amd',
-      'text': 'vendor/text',
-      'tiny-jsonrpc': 'node_modules/tiny-jsonrpc/lib/tiny-jsonrpc',
-      'tiny-jsonrpc-postmessage': 'node_modules/' +
-        'tiny-jsonrpc-postmessage/lib/tiny-jsonrpc-postmessage'
-    }
   },
 
   // Non-functional test suite(s) to run in each browser
@@ -69,7 +59,5 @@ define({
   functionalSuites: [ /* 'myPackage/tests/functional' */ ],
 
   // A regular expression matching URLs to files that should not be included in code coverage analysis
-  excludeInstrumentation: /^.*/,
-
-  reporters: ['runner']
+  excludeInstrumentation: /./
 });
